@@ -193,14 +193,26 @@ Interface Certificate {
 					<h3>derEncodededBuffer</h3>		
 					<p>It contains the full text of the X.509 certificate encoded in der.</p>
 				</section>
-				
 			</section>
-			
-			
 		</section>
-		<section id='certificateprincipal_interface'>
+		<section id='certificateprincipal-interface'>
 			<h3>CertificatePrincipal Interface</h3>			
-			<p></p>
+			<pre class="idl">
+Interface CertificatePrincipal {
+    readonly attribute DOMString distinguishedNames;
+} 
+			</pre>
+			<section id='certificateprincipal-interface-description'>
+				<h3>Description</h3>			
+				<p></p>
+			</section>
+			<section id='certificateprincipal-interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificateprincipal-interface-distinguishednames'>
+					<h3>distinguishedNames</h3>
+					<p></p>
+				</section>
+			</section>
 		</section>
 		<section id='certificaterequestoptions_dictionary'>
 			<h3>CertificateRequestOptions dictionary</h3>			
