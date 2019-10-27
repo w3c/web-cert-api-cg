@@ -200,9 +200,10 @@ interface Certificate {
 		<section id='certificateprincipal-interface'>
 			<h3>CertificatePrincipal Interface</h3>			
 			<pre class="idl">
-Interface CertificatePrincipal {
+[SecureContext, Exposed=Window]
+interface CertificatePrincipal {
     readonly attribute DOMString distinguishedNames;
-} 
+};
 			</pre>
 			<section id='certificateprincipal-interface-description'>
 				<h3>Description</h3>			
