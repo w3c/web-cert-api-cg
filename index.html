@@ -125,6 +125,28 @@ Interface SignedObject {
     readonly attribute BufferSource signedMessage;
 } 
 			</pre>
+
+			<section id='signedobject_interface-description'>
+				<h3>Description</h3>			
+				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
+			</section>
+			<section id='signedobject_interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='signedobject_interface-attributes-certificate'>
+					<h3>Certificate</h3>
+					<p>It contains an information about the certificate that can verify the private key used for signing.</p>
+				</section>
+				<section id='signedobject_interface-attributes-saltedmessage'>
+					<h3>saltedMessage</h3>
+					<p></p>					
+				</section>
+				<section id='signedobject_interface-attributes-signedmessage'>
+					<h3>signedMessage</h3>		
+					<p></p>					
+				</section>					
+			</section>
+			
+			
 		</section>
 		<section id='certificate_interface'>
 			<h3>Certificate Interface</h3>			
