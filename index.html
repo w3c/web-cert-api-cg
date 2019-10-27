@@ -64,6 +64,30 @@
 		<section id='example'>
 			<h3>Example</h3>			
 			<p>The example below signs a messageBuffer with the user's private key and verifies the message signed with the public key passed along with the signed message.</p>
+			<pre class="example js" title="example code for web certificate api">
+				var messageBuffer;
+
+				// Fill messageBuffer in type of ArrayBuffer with data you want to sign.
+
+				window.crypto.subtle.certSign(messageBuffer, { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" }}, {"keyUsagses" : [ "nonRepudiation" ]})
+				.then(signedObject => {
+				// Do something with signedObject here
+				      console.log(signedObject.certificate.publicKey);
+				      console.log(buf2hex(signedObject.message));
+				      return window.crypto.subtle.verify(
+				      signedObject.certificate.publicKey.algorithm,
+				      signedObject.certificate.publicKey,
+				      signedObject.signedMessage,
+				      signedObject.saltedMessage));
+				    }).then(isValid => {
+				      console.log(isValid);
+				    });
+				  })
+				  .catch(error => {
+				    // Handle exceptional case here
+				    console.log(error.name + ":" + error.message);
+				});
+			</pre>
 		</section>
 		<section id='certsign-method'>
 			<h3>certSign() Method</h3>			
