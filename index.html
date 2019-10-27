@@ -161,38 +161,37 @@ Interface Certificate {
 
 			<section id='certificate-interface-description'>
 				<h3>Description</h3>			
-				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
+				<p>Certificate is an object that represents a certificate and contains the main information of the certificate and the full text of the certificate as defined in the X.509 standard.</p>
 			</section>
-			<section id='signedobject_interface-attributes'>
+			<section id='certificate-interface-attributes'>
 				<h3>Attributes</h3>
 				<section id='certificate-interface-attributes-version'>
 					<h3>Version</h3>
-					<p></p>
+					<p>It contains version information for certificates according to X.509.</p>
 				</section>
 				<section id='certificate-interface-attributes-serialnumber'>
 					<h3>serialNumber</h3>
-					<p></p>
+					<p>It contains the serial number of the certificate issued by the issuer.</p>
 				</section>
 				<section id='certificate-interface-attributes-subject'>
 					<h3>Subject</h3>		
-					<p></p>
+					<p>It contains the owner's information.</p>
 				</section>
-
 				<section id='certificate-interface-attributes-issuer'>
 					<h3>Issuer</h3>
-					<p></p>
+					<p>It contains information from the issuer.</p>
 				</section>
 				<section id='certificate-interface-attributes-notbefore'>
 					<h3>notBefore</h3>
-					<p></p>
+					<p>It contains the first valid date of the certificate.</p>
 				</section>
 				<section id='certificate-interface-attributes-notafter'>
 					<h3>notAfter</h3>		
-					<p></p>
+					<p>It contains the last valid date of the certificate.</p>
 				</section>
 				<section id='certificate-interface-attributes-derencodededbuffer'>
 					<h3>derEncodededBuffer</h3>		
-					<p></p>
+					<p>It contains the full text of the X.509 certificate encoded in der.</p>
 				</section>
 				
 			</section>
