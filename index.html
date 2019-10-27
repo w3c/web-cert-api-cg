@@ -116,7 +116,7 @@ partial interface SubtleCrypto {
 				</section>					
 			</section>
 		</section>
-		<section id='signedobject_interface'>
+		<section id='signedobject-interface'>
 			<h3>SignedObject Interface</h3>		
 			<pre class="idl">
 Interface SignedObject {
@@ -125,27 +125,27 @@ Interface SignedObject {
     readonly attribute BufferSource signedMessage;
 } 
 			</pre>
-			<section id='signedobject_interface-description'>
+			<section id='signedobject-interface-description'>
 				<h3>Description</h3>			
 				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
 			</section>
-			<section id='signedobject_interface-attributes'>
+			<section id='signedobject-interface-attributes'>
 				<h3>Attributes</h3>
-				<section id='signedobject_interface-attributes-certificate'>
+				<section id='signedobject-interface-attributes-certificate'>
 					<h3>Certificate</h3>
 					<p>It contains an information about the certificate that can verify the private key used for signing.</p>
 				</section>
-				<section id='signedobject_interface-attributes-saltedmessage'>
+				<section id='signedobject-interface-attributes-saltedmessage'>
 					<h3>saltedMessage</h3>
 					<p>It contains the original message that was signed. The message passed as an argument to the certSign() method allows the browser to add salt information to the message, depending on the options passed with it, and the added message is then passed to saltedMessage. The browser can add to the message information, such as the host requesting the signature, to avoid man-in-the-middle attacks.</p>					
 				</section>
-				<section id='signedobject_interface-attributes-signedmessage'>
+				<section id='signedobject-interface-attributes-signedmessage'>
 					<h3>signedMessage</h3>		
 					<p>It contains a signed message. The signed message must be able to be validated through the Web Crypto API using the certificate information and the saltedMessage passed along.</p>					
 				</section>					
 			</section>
 		</section>
-		<section id='certificate_interface'>
+		<section id='certificate-interface'>
 			<h3>Certificate Interface</h3>			
 			<pre class="idl">
 Interface Certificate {
@@ -158,6 +158,28 @@ Interface Certificate {
     readonly attribute BufferSource derEncodedBuffer;
 }
 			</pre>
+
+			<section id='certificate-interface-description'>
+				<h3>Description</h3>			
+				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
+			</section>
+			<section id='signedobject_interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificate-interface-attributes-version'>
+					<h3>Version</h3>
+					<p></p>
+				</section>
+				<section id='certificate-interface-attributes-serialnumber'>
+					<h3>serialNumber</h3>
+					<p></p>
+				</section>
+				<section id='certificate-interface-attributes-subject'>
+					<h3>Subject</h3>		
+					<p></p>
+				</section>					
+			</section>
+			
+			
 		</section>
 		<section id='certificateprincipal_interface'>
 			<h3>CertificatePrincipal Interface</h3>			
