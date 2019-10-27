@@ -90,7 +90,12 @@
 			</pre>
 		</section>
 		<section id='certsign-method'>
-			<h3>certSign() Method</h3>			
+			<h3>certSign() Method</h3>
+				<pre class="idl">
+					partial interface SubtleCrypto {
+						Promise<SignedObject> certSign(BufferSource dataToSign, AlgorithmIdentifier algorithm, CertificateOptions options);
+					}; 
+				</pre>
 			<p></p>
 		</section>
 		<section id='signedobject_interface'>
