@@ -91,11 +91,11 @@
 		</section>
 		<section id='certsign-method'>
 			<h3>certSign() Method</h3>
-				<pre class="idl">
+			<pre class="idl">
 partial interface SubtleCrypto {
 	Promise<SignedObject> certSign(BufferSource dataToSign, AlgorithmIdentifier algorithm, CertificateOptions options);
 }; 
-				</pre>
+			</pre>
 			<section id='certsign-method-description'>
 				<h3>Description</h3>			
 				<p>The certSign () method performs the digital signature using the private key of the certificate selected by the user among the certificates satisfying the options given as parameters, and returns the result to Promise. The browser needs to get confirmation from the user before responding to the API. The set of signing behaviors is the same as the sign () method of the Web Crypto API.</p>
@@ -117,8 +117,14 @@ partial interface SubtleCrypto {
 			</section>
 		</section>
 		<section id='signedobject_interface'>
-			<h3>SignedObject Interface</h3>			
-			<p></p>
+			<h3>SignedObject Interface</h3>		
+			<pre class="idl">
+Interface SignedObject {
+    readonly attribute Certificate certificate;
+    readonly attribute BufferSource saltedMessage; 
+    readonly attribute BufferSource signedMessage;
+} 
+			</pre>
 		</section>
 		<section id='certificate_interface'>
 			<h3>Certificate Interface</h3>			
