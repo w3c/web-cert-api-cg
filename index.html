@@ -95,11 +95,11 @@
 		<p>The web API for certificate-based signing handles the user's certificate and public / private key information, so the browser must pay special attention to security. This specification does not deal with spaces for storing user certificates and public / private keys, but browsers can exclude certificates and public / private keys that are not stored in secure storage. In addition, browsers can provide the ability for users to add, view, modify, or delete certificates and public / private keys used for web APIs for certificate-based signing, but are not covered in this specification.</p>
 		<section id='user_agreements'>
 			<h3>User agreements</h3>			
-			<p></p>			
+			<p>The browser must obtain explicit confirmation from the user to retrieve the certificate or to sign the certificate. At this time, the user's confirmation cannot be used from different origins on the same web page. If the user does not agree, a NotAllowedError exception is raised.</p>			
 		</section>
 		<section id='Man-in-the-middle-attack-and-domain-forgery'>
 			<h3>Man-in-the-middle attack / domain forgery</h3>			
-			<p></p>			
+			<p>Browsers can sign host messages and browser information in a signature message to prevent man-in-the-middle attacks or domain forgery. Through this, even if the attacker delivers the signed message, the service provider can check whether the message is directly received from the user by using the host information included in the message.</p>			
 		</section>		
 	</section>	
 </body>
