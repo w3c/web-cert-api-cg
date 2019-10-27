@@ -147,7 +147,17 @@ Interface SignedObject {
 		</section>
 		<section id='certificate_interface'>
 			<h3>Certificate Interface</h3>			
-			<p></p>
+			<pre class="idl">
+Interface Certificate {
+    readonly attribute integer version;
+    readonly attribute DOMString serialNumber;
+    readonly attribute CertificatePrincipal subject;
+    readonly attribute CertificatePrincipal issuer;
+    readonly attribute Date notBefore;
+    readonly attribute Date notAfter;
+    readonly attribute BufferSource derEncodedBuffer;
+}
+			</pre>
 		</section>
 		<section id='certificateprincipal_interface'>
 			<h3>CertificatePrincipal Interface</h3>			
