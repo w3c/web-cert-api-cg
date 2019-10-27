@@ -228,13 +228,28 @@ dictionary CertificateRequestOptions {
 			</pre>
 			<section id='certificaterequestoptions-dictionary-description'>
 				<h3>Description</h3>			
-				<p></p>
+				<p>CertificateRequestOptions contains the information needed to restrict the certificate and private key used for signing. The service provider can use this value to restrict the user to signing with a certificate that the service provider does not trust.
+				   CertificateRequestOptions is extensible for precise signatures.
+				</p>
 			</section>
 			<section id='certificaterequestoptions-dictionary-attributes'>
 				<h3>Attributes</h3>
 				<section id='certificaterequestoptions-dictionary-keyusages-'>
 					<h3>keyUsages</h3>
-					<p></p>
+					<p>The owner's public key contained in the certificate restricts the purpose for which it is used. It can consist of one or more of the following strings:</p>
+					<ul>
+						<li>digitalSignature: public key can be used for digital signatures</li>
+						<li>nonrepudiation: the public key can be used for nonrepudiation</li>
+						<li>contentCommitment: same as nonrepudiation</li>
+						<li>keyEncipherment: The public key can be used for key transfer</li>
+						<li>dataEncipherment: The public key can be used to encrypt data</li>
+						<li>keyAgreement: public key can be used for key matching</li>
+						<li>keyCertSign: public key can be used to verify the signature of a certificate</li>
+						<li>cRLSign: public key can be used to verify signatures for certificate revocation information such as CRLs</li>
+						<li>encipherOnly: can only be used to encrypt data during key agreement when the public key is used for key matching (KeyAgreement)</li>
+						<li>decipherOnly: can only be used to decrypt data when the public key is used for key matching</li>
+					</ul>
+
 				</section>
 				<section id='certificaterequestoptions-dictionary-issuer'>
 					<h3>issuer</h3>
