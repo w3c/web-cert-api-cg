@@ -266,7 +266,16 @@ dictionary CertificateRequestOptions {
 		</section>
 		<section id='exceptions'>
 			<h3>Exceptions</h3>			
-			<p></p>			
+			<p>Certificates reject a promise object with the following DOMException in exceptional circumstances:</p>			
+			<ul>
+				<li>AbortError: API request canceled</li>
+				<li>NotSupportedError: requesting a signature with an unsupported algorithm</li>
+				<li>SecurityError: requested from a web page that is not a Secure Context or not a top-level document</li>
+				<li>NotAllowedError: requested signature but user disagrees</li>
+				<li>OperationError: failed to read the certificate / private key file</li>
+				<li>InvalidStateError: API is not available or if the request that occurred first is still being processed</li>
+			</ul>
+
 		</section>		
 	</section>
 	<section id='privacy-and-security-considerations'>
