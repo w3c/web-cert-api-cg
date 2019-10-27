@@ -119,11 +119,12 @@ partial interface SubtleCrypto {
 		<section id='signedobject-interface'>
 			<h3>SignedObject Interface</h3>		
 			<pre class="idl">
-Interface SignedObject {
+[SecureContext, Exposed=Window]
+interface SignedObject {
     readonly attribute Certificate certificate;
     readonly attribute BufferSource saltedMessage; 
     readonly attribute BufferSource signedMessage;
-} 
+};
 			</pre>
 			<section id='signedobject-interface-description'>
 				<h3>Description</h3>			
