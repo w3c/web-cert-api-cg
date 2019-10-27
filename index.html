@@ -125,7 +125,6 @@ Interface SignedObject {
     readonly attribute BufferSource signedMessage;
 } 
 			</pre>
-
 			<section id='signedobject_interface-description'>
 				<h3>Description</h3>			
 				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
@@ -138,15 +137,13 @@ Interface SignedObject {
 				</section>
 				<section id='signedobject_interface-attributes-saltedmessage'>
 					<h3>saltedMessage</h3>
-					<p></p>					
+					<p>It contains the original message that was signed. The message passed as an argument to the certSign() method allows the browser to add salt information to the message, depending on the options passed with it, and the added message is then passed to saltedMessage. The browser can add to the message information, such as the host requesting the signature, to avoid man-in-the-middle attacks.</p>					
 				</section>
 				<section id='signedobject_interface-attributes-signedmessage'>
 					<h3>signedMessage</h3>		
-					<p></p>					
+					<p>It contains a signed message. The signed message must be able to be validated through the Web Crypto API using the certificate information and the saltedMessage passed along.</p>					
 				</section>					
 			</section>
-			
-			
 		</section>
 		<section id='certificate_interface'>
 			<h3>Certificate Interface</h3>			
