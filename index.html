@@ -103,13 +103,16 @@ partial interface SubtleCrypto {
 			<section id='certsign-method-parameters'>
 				<h3>Parameters</h3>
 				<section id='certsign-method-parameters-datatosign'>
-					<h3>dataToSign</h3>			
+					<h3>dataToSign</h3>
+					<p>It contains the message to use for signing. The browser can use this signature with additional information, depending on whether the option is salted or not.</p>
 				</section>
 				<section id='certsign-method-parameters-algorithm'>
-					<h3>Algorithm</h3>			
+					<h3>Algorithm</h3>
+					<p>It contains an information about the algorithm to use for signing.</p>					
 				</section>
 				<section id='certsign-method-parameters-options'>
-					<h3>Options</h3>			
+					<h3>Options</h3>		
+					<p>It contains additional information such as limiting available certificates for signing and processing the message.</p>					
 				</section>					
 			</section>
 		</section>
