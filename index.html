@@ -84,6 +84,7 @@
 		<section id='certificaterequestoptions_dictionary'>
 			<h3>CertificateRequestOptions dictionary</h3>			
 			<p></p>
+		</section>
 		<section id='exceptions'>
 			<h3>Exceptions</h3>			
 			<p></p>			
@@ -91,7 +92,15 @@
 	</section>
 	<section id='privacy-and-security-considerations'>
 		<h2>Privacy and Security Considerations</h2>
-		<p></p>
+		<p>The web API for certificate-based signing handles the user's certificate and public / private key information, so the browser must pay special attention to security. This specification does not deal with spaces for storing user certificates and public / private keys, but browsers can exclude certificates and public / private keys that are not stored in secure storage. In addition, browsers can provide the ability for users to add, view, modify, or delete certificates and public / private keys used for web APIs for certificate-based signing, but are not covered in this specification.</p>
+		<section id='user_agreements'>
+			<h3>User agreements</h3>			
+			<p></p>			
+		</section>
+		<section id='Man-in-the-middle-attack-and-domain-forgery'>
+			<h3>Man-in-the-middle attack / domain forgery</h3>			
+			<p></p>			
+		</section>		
 	</section>	
 </body>
 </html>
