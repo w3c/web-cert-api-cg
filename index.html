@@ -214,8 +214,39 @@ Interface CertificatePrincipal {
 				</section>
 			</section>
 		</section>
-		<section id='certificaterequestoptions_dictionary'>
+		<section id='certificaterequestoptions-dictionary'>
 			<h3>CertificateRequestOptions dictionary</h3>			
+
+			<pre class="idl">
+typedef DOMString KeyUsage;
+
+dictionary CertificateRequestOptions {
+	sequence<KeyUsage> keyUsages;
+	sequence<CertificatePrincipal> issuer;
+	boolean useSalt;
+};
+			</pre>
+			<section id='certificaterequestoptions-dictionary-description'>
+				<h3>Description</h3>			
+				<p></p>
+			</section>
+			<section id='certificaterequestoptions-dictionary-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificaterequestoptions-dictionary-keyusages-'>
+					<h3>keyUsages</h3>
+					<p></p>
+				</section>
+				<section id='certificaterequestoptions-dictionary-issuer'>
+					<h3>issuer</h3>
+					<p></p>					
+				</section>
+				<section id='certificaterequestoptions-dictionary-usesalt'>
+					<h3>useSalt</h3>		
+					<p></p>					
+				</section>					
+			</section>
+			
+			
 			<p></p>
 		</section>
 		<section id='exceptions'>
