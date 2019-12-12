@@ -151,12 +151,12 @@ interface SignedObject {
 			<pre class="idl">
 [SecureContext, Exposed=Window]
 interface Certificate {
-    readonly attribute integer version;
+    readonly attribute DOMString version;
     readonly attribute DOMString serialNumber;
     readonly attribute CertificatePrincipal subject;
     readonly attribute CertificatePrincipal issuer;
-    readonly attribute Date notBefore;
-    readonly attribute Date notAfter;
+    readonly attribute long long notBefore;
+    readonly attribute long long notAfter;
     readonly attribute BufferSource derEncodedBuffer;
 };
 			</pre>
