@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type">
+	<title>Web Certificate API</title>
+	<script async class="remove" src=
+	"https://www.w3.org/Tools/respec/respec-w3c-common">
+	</script>
+	<script class="remove">
+	 var respecConfig = {
+     //shortName:            "timing-entrytypes-registry",
+	   specStatus:           "ED",
+     // specStatus:           "WG-NOTE",
+     noRecTrack: true,
+     edDraftURI:  "https://github.com/w3c/web-cert-api-cg/blob/master/index.html",
+     editors:  [
+	{
+	      "name": "최병운(Ryan Choi)",
+	      "company": "네이버(Naver)",
+	      "url": "mailto:ryuan.choi@navercorp.com",
+	      "companyURL": "https://www.naver.com/",
+	      "w3cid": 00000
+    	},
+	{
+	      "name": "이형욱(Hyungwook Lee)",
+	      "company": "네이버(Naver)",
+	      "url": "mailto:hyungwook.lee@navercorp.com",
+	      "companyURL": "https://www.naver.com/",
+	      "w3cid": 00000
+    	},
+	{
+	      "name": "이원석(Wonsuk Lee)",
+	      "company": "한국전자통신연구원(ETRI)",
+	      "url": "mailto:wonsuk.lee@etri.re.kr",
+	      "companyURL": "https://www.etri.re.kr/",
+	      "w3cid": 34457
+    	}	   
+	     ],
+	     wg: "Web Certificate API Community Group",
+	     wgURI: "https://www.w3.org/community/web-cert-api/",
+	     wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/53154/status",
+	     github: {
+				 repoURL: "https://github.com/w3c/web-cert-api-cg",
+				 branch: "master"
+			 },
+	   };
+	</script>
+</head>
+<body>
+	<section id="abstract">
+		<p>This specification defines a JavaScript API for certificate related operations in web applications, such as retrieving a list of certificates, obtaining a public key and a private key associated with a certificate.</p>
+	</section>
+	<section id="sotd">
+	</section>
+	<section id='introduction'>
+		<h2>Introduction</h2>
+		<p>The goal of Web Certificate API is to define a javaScript API for certificate related operations in web applications, such as retrieving a list of certificates, obtaining a public key and a private key associated with a certificate.</p>
+	</section>
+	<section id='conformance'>
+	</section>
+	<section id='web-certificate-interfaces'>
+		<h2>Web Certificate Interfaces</h2>
+		<p>The web API for certificate-based signing provides a certSign() method for the browser to accept the service provider's request and sign it with the user's private key.</p>
+		<section id='example'>
+			<h3>Example</h3>			
+			<p>The example below signs a messageBuffer with the user's private key and verifies the message signed with the public key passed along with the signed message.</p>
+			<pre class="example js" title="example code for web certificate api">
+				var messageBuffer;
+
+				// Fill messageBuffer in type of ArrayBuffer with data you want to sign.
+
+				window.crypto.subtle.certSign(messageBuffer, { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" }}, {"keyUsagses" : [ "nonRepudiation" ]})
+				.then(signedObject => {
+				// Do something with signedObject here
+				      console.log(signedObject.certificate.publicKey);
+				      console.log(buf2hex(signedObject.message));
+				      return window.crypto.subtle.verify(
+				      signedObject.certificate.publicKey.algorithm,
+				      signedObject.certificate.publicKey,
+				      signedObject.signedMessage,
+				      signedObject.saltedMessage));
+				    }).then(isValid => {
+				      console.log(isValid);
+				    });
+				  })
+				  .catch(error => {
+				    // Handle exceptional case here
+				    console.log(error.name + ":" + error.message);
+				});
+			</pre>
+		</section>
+		<section id='certsign-method'>
+			<h3>certSign() Method</h3>
+			<pre class="idl">
+partial interface SubtleCrypto {
+	Promise<SignedObject> certSign(BufferSource dataToSign, AlgorithmIdentifier algorithm, CertificateOptions options);
+}; 
+			</pre>
+			<section id='certsign-method-description'>
+				<h3>Description</h3>			
+				<p>The certSign () method performs the digital signature using the private key of the certificate selected by the user among the certificates satisfying the options given as parameters, and returns the result to Promise. The browser needs to get confirmation from the user before responding to the API. The set of signing behaviors is the same as the sign () method of the Web Crypto API.</p>
+			</section>
+			<section id='certsign-method-parameters'>
+				<h3>Parameters</h3>
+				<section id='certsign-method-parameters-datatosign'>
+					<h3>dataToSign</h3>
+					<p>It contains the message to use for signing. The browser can use this signature with additional information, depending on whether the option is salted or not.</p>
+				</section>
+				<section id='certsign-method-parameters-algorithm'>
+					<h3>Algorithm</h3>
+					<p>It contains an information about the algorithm to use for signing.</p>					
+				</section>
+				<section id='certsign-method-parameters-options'>
+					<h3>Options</h3>		
+					<p>It contains additional information such as limiting available certificates for signing and processing the message.</p>					
+				</section>					
+			</section>
+		</section>
+		<section id='signedobject-interface'>
+			<h3>SignedObject Interface</h3>		
+			<pre class="idl">
+[SecureContext, Exposed=Window]
+interface SignedObject {
+    readonly attribute Certificate certificate;
+    readonly attribute BufferSource saltedMessage; 
+    readonly attribute BufferSource signedMessage;
+};
+			</pre>
+			<section id='signedobject-interface-description'>
+				<h3>Description</h3>			
+				<p>SignedObject is the return value of the certSign() method. It contains information about the certificate that can verify the signed message and the private key used for signing.</p>
+			</section>
+			<section id='signedobject-interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='signedobject-interface-attributes-certificate'>
+					<h3>Certificate</h3>
+					<p>It contains an information about the certificate that can verify the private key used for signing.</p>
+				</section>
+				<section id='signedobject-interface-attributes-saltedmessage'>
+					<h3>saltedMessage</h3>
+					<p>It contains the original message that was signed. The message passed as an argument to the certSign() method allows the browser to add salt information to the message, depending on the options passed with it, and the added message is then passed to saltedMessage. The browser can add to the message information, such as the host requesting the signature, to avoid man-in-the-middle attacks.</p>					
+				</section>
+				<section id='signedobject-interface-attributes-signedmessage'>
+					<h3>signedMessage</h3>		
+					<p>It contains a signed message. The signed message must be able to be validated through the Web Crypto API using the certificate information and the saltedMessage passed along.</p>					
+				</section>					
+			</section>
+		</section>
+		<section id='certificate-interface'>
+			<h3>Certificate Interface</h3>			
+			<pre class="idl">
+[SecureContext, Exposed=Window]
+interface Certificate {
+    readonly attribute integer version;
+    readonly attribute DOMString serialNumber;
+    readonly attribute CertificatePrincipal subject;
+    readonly attribute CertificatePrincipal issuer;
+    readonly attribute Date notBefore;
+    readonly attribute Date notAfter;
+    readonly attribute BufferSource derEncodedBuffer;
+};
+			</pre>
+
+			<section id='certificate-interface-description'>
+				<h3>Description</h3>			
+				<p>Certificate is an object that represents a certificate and contains the main information of the certificate and the full text of the certificate as defined in the X.509 standard.</p>
+			</section>
+			<section id='certificate-interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificate-interface-attributes-version'>
+					<h3>Version</h3>
+					<p>It contains version information for certificates according to X.509.</p>
+				</section>
+				<section id='certificate-interface-attributes-serialnumber'>
+					<h3>serialNumber</h3>
+					<p>It contains the serial number of the certificate issued by the issuer.</p>
+				</section>
+				<section id='certificate-interface-attributes-subject'>
+					<h3>Subject</h3>		
+					<p>It contains the owner's information.</p>
+				</section>
+				<section id='certificate-interface-attributes-issuer'>
+					<h3>Issuer</h3>
+					<p>It contains information from the issuer.</p>
+				</section>
+				<section id='certificate-interface-attributes-notbefore'>
+					<h3>notBefore</h3>
+					<p>It contains the first valid date of the certificate.</p>
+				</section>
+				<section id='certificate-interface-attributes-notafter'>
+					<h3>notAfter</h3>		
+					<p>It contains the last valid date of the certificate.</p>
+				</section>
+				<section id='certificate-interface-attributes-derencodededbuffer'>
+					<h3>derEncodededBuffer</h3>		
+					<p>It contains the full text of the X.509 certificate encoded in der.</p>
+				</section>
+			</section>
+		</section>
+		<section id='certificateprincipal-interface'>
+			<h3>CertificatePrincipal Interface</h3>			
+			<pre class="idl">
+[SecureContext, Exposed=Window]
+interface CertificatePrincipal {
+    readonly attribute DOMString distinguishedNames;
+};
+			</pre>
+			<section id='certificateprincipal-interface-description'>
+				<h3>Description</h3>			
+				<p>CertificatePrincipal contains information about the issuer and owner of a certificate in accordance with the X.509 standard.</p>
+			</section>
+			<section id='certificateprincipal-interface-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificateprincipal-interface-distinguishednames'>
+					<h3>distinguishedNames</h3>
+					<p>It contains the distinguished name of the owner or issuer as defined in the X.509 standard in DN format.</p>
+				</section>
+			</section>
+		</section>
+		<section id='certificaterequestoptions-dictionary'>
+			<h3>CertificateRequestOptions dictionary</h3>			
+
+			<pre class="idl">
+typedef DOMString KeyUsage;
+
+dictionary CertificateRequestOptions {
+	sequence<KeyUsage> keyUsages;
+	sequence<CertificatePrincipal> issuer;
+	boolean useSalt;
+};
+			</pre>
+			<section id='certificaterequestoptions-dictionary-description'>
+				<h3>Description</h3>			
+				<p>CertificateRequestOptions contains the information needed to restrict the certificate and private key used for signing. The service provider can use this value to restrict the user to signing with a certificate that the service provider does not trust.
+				   CertificateRequestOptions is extensible for precise signatures.
+				</p>
+			</section>
+			<section id='certificaterequestoptions-dictionary-attributes'>
+				<h3>Attributes</h3>
+				<section id='certificaterequestoptions-dictionary-keyusages-'>
+					<h3>keyUsages</h3>
+					<p>The owner's public key contained in the certificate restricts the purpose for which it is used. It can consist of one or more of the following strings:</p>
+					<ul>
+						<li>digitalSignature: public key can be used for digital signatures</li>
+						<li>nonrepudiation: the public key can be used for nonrepudiation</li>
+						<li>contentCommitment: same as nonrepudiation</li>
+						<li>keyEncipherment: The public key can be used for key transfer</li>
+						<li>dataEncipherment: The public key can be used to encrypt data</li>
+						<li>keyAgreement: public key can be used for key matching</li>
+						<li>keyCertSign: public key can be used to verify the signature of a certificate</li>
+						<li>cRLSign: public key can be used to verify signatures for certificate revocation information such as CRLs</li>
+						<li>encipherOnly: can only be used to encrypt data during key agreement when the public key is used for key matching (KeyAgreement)</li>
+						<li>decipherOnly: can only be used to decrypt data when the public key is used for key matching</li>
+					</ul>
+
+				</section>
+				<section id='certificaterequestoptions-dictionary-issuer'>
+					<h3>issuer</h3>
+					<p>It is used on restrict issuers for signing.</p>					
+				</section>
+				<section id='certificaterequestoptions-dictionary-usesalt'>
+					<h3>useSalt</h3>		
+					<p>The browser decides whether to sign by adding additional information to the message received through the certSign () method.</p>					
+				</section>					
+			</section>
+			
+			
+			<p></p>
+		</section>
+		<section id='exceptions'>
+			<h3>Exceptions</h3>			
+			<p>Certificates reject a promise object with the following DOMException in exceptional circumstances:</p>			
+			<ul>
+				<li>AbortError: API request canceled</li>
+				<li>NotSupportedError: requesting a signature with an unsupported algorithm</li>
+				<li>SecurityError: requested from a web page that is not a Secure Context or not a top-level document</li>
+				<li>NotAllowedError: requested signature but user disagrees</li>
+				<li>OperationError: failed to read the certificate / private key file</li>
+				<li>InvalidStateError: API is not available or if the request that occurred first is still being processed</li>
+			</ul>
+
+		</section>		
+	</section>
+	<section id='privacy-and-security-considerations'>
+		<h2>Privacy and Security Considerations</h2>
+		<p>The web API for certificate-based signing handles the user's certificate and public / private key information, so the browser must pay special attention to security. This specification does not deal with spaces for storing user certificates and public / private keys, but browsers can exclude certificates and public / private keys that are not stored in secure storage. In addition, browsers can provide the ability for users to add, view, modify, or delete certificates and public / private keys used for web APIs for certificate-based signing, but are not covered in this specification.</p>
+		<section id='user_agreements'>
+			<h3>User agreements</h3>			
+			<p>The browser must obtain explicit confirmation from the user to retrieve the certificate or to sign the certificate. At this time, the user's confirmation cannot be used from different origins on the same web page. If the user does not agree, a NotAllowedError exception is raised.</p>			
+		</section>
+		<section id='Man-in-the-middle-attack-and-domain-forgery'>
+			<h3>Man-in-the-middle attack / domain forgery</h3>			
+			<p>Browsers can sign host messages and browser information in a signature message to prevent man-in-the-middle attacks or domain forgery. Through this, even if the attacker delivers the signed message, the service provider can check whether the message is directly received from the user by using the host information included in the message.</p>			
+		</section>		
+	</section>	
+</body>
+</html>
