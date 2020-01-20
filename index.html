@@ -9,7 +9,7 @@
 	<script class="remove">
 	 var respecConfig = {
      //shortName:            "timing-entrytypes-registry",
-	   specStatus:           "ED",
+	   specStatus:           "CG-DRAFT",
      // specStatus:           "WG-NOTE",
      noRecTrack: true,
      edDraftURI:  "https://github.com/w3c/web-cert-api-cg/blob/master/index.html",
@@ -93,7 +93,7 @@
 			<h3>certSign() Method</h3>
 			<pre class="idl">
 partial interface SubtleCrypto {
-	Promise<SignedObject> certSign(BufferSource dataToSign, AlgorithmIdentifier algorithm, CertificateOptions options);
+	Promise&lt;SignedObject> certSign(BufferSource dataToSign, AlgorithmIdentifier algorithm, CertificateOptions options);
 }; 
 			</pre>
 			<section id='certsign-method-description'>
@@ -224,8 +224,8 @@ interface CertificatePrincipal {
 typedef DOMString KeyUsage;
 
 dictionary CertificateRequestOptions {
-	sequence<KeyUsage> keyUsages;
-	sequence<CertificatePrincipal> issuer;
+	sequence&lt;KeyUsage> keyUsages;
+	sequence&lt;CertificatePrincipal> issuer;
 	boolean useSalt;
 };
 			</pre>
